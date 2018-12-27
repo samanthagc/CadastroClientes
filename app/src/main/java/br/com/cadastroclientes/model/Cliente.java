@@ -11,6 +11,7 @@ public class Cliente {
     private String sobrenome;
     private String cpf;
     private String cep;
+    private String dataNascimento;
 
     public Long getId() {
         return id;
@@ -50,5 +51,13 @@ public class Cliente {
 
     public void setCep(String cep) {
         this.cep = cep;
+    }
+
+    public String getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 }

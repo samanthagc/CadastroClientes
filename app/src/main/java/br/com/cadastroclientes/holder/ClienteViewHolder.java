@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import br.com.cadastroclientes.CadastroActivity;
 import br.com.cadastroclientes.ConfiguracoesActivity;
 import br.com.cadastroclientes.R;
 import br.com.cadastroclientes.adapter.ClienteAdapter;
@@ -20,8 +19,7 @@ public class ClienteViewHolder extends RecyclerView.ViewHolder{
 
     private final ClienteAdapter adapter;
     private Long clienteId;
-    private TextView nomeCliente;
-    private TextView cpfCliente;
+    private TextView nomeCliente, cpfCliente;
 
     public ClienteViewHolder(View itemView, ClienteAdapter adapter) {
         super(itemView);
@@ -48,9 +46,14 @@ public class ClienteViewHolder extends RecyclerView.ViewHolder{
      */
     public void preencher(Cliente cliente){
         clienteId = cliente.getId();
+
+        //nome completo
         String nomeCompletoCl = cliente.getNome() + " " + cliente.getSobrenome();
         nomeCliente.setText(nomeCompletoCl);
+
+        //cpf
         String cpfCl = cliente.getCpf();
         cpfCliente.setText(cpfCl);
+
     }
 }

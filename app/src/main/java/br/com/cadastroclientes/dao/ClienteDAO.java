@@ -17,14 +17,16 @@ import br.com.cadastroclientes.model.Cliente;
 
 public class ClienteDAO extends SQLiteOpenHelper {
 
+    public static final String TABLE_NAME = "Clientes";
+
     public ClienteDAO(Context context) {
-        super(context, "ClientesDB", null, 1);
+        super(context, "ClientesDB", null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String sql = "CREATE TABLE Clientes(id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, " +
-                "sobrenome TEXT, cpf TEXT, cep TEXT)";
+        String sql = "CREATE TABLE " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nome TEXT, sobrenome TEXT, cpf TEXT, cep TEXT, dataNascimento TEXT)";
         sqLiteDatabase.execSQL(sql);
     }
 
@@ -46,7 +48,28 @@ public class ClienteDAO extends SQLiteOpenHelper {
         cv.put("sobrenome", cliente.getSobrenome());
         cv.put("cpf", cliente.getCpf());
         cv.put("cep", cliente.getCep());
-        db.insert("Clientes", null, cv);
+        cv.put("dataNascimento", cliente.getDataNascimento());
+        db.insert(TABLE_NAME, null, cv);
+    }
+
+    /**
+     * Atualiza os dados de um objeto cliente.
+     *
+     * @param cliente
+     * @param idCliente
+     */
+    public void atualiza(Cliente cliente, Long idCliente){
+        ContentValues cv = new ContentValues();
+        cv.put("nome", cliente.getNome());
+        cv.put("sobrenome", cliente.getSobrenome());
+        cv.put("cpf", cliente.getCpf());
+        cv.put("cep", cliente.getCep());
+        cv.put("dataNascimento", cliente.getDataNascimento());
+
+        SQLiteDatabase db = getWritableDatabase();
+        String where = "id like " + idCliente +"";
+        String[] arg = { idCliente.toString() };
+        db.update(TABLE_NAME, cv, where, arg);
     }
 
     /**
@@ -56,7 +79,7 @@ public class ClienteDAO extends SQLiteOpenHelper {
      */
     public List<Cliente> buscarClientes() {
         SQLiteDatabase database = getReadableDatabase();
-        String sql = "SELECT * FROM Clientes order by id DESC";
+        String sql = "SELECT * FROM " + TABLE_NAME + " order by id DESC";
         List<Cliente> clientes = new ArrayList<>();
         Cursor c = database.rawQuery(sql,null);
         while (c.moveToNext()){
@@ -66,6 +89,7 @@ public class ClienteDAO extends SQLiteOpenHelper {
             cliente.setSobrenome(c.getString(c.getColumnIndex("sobrenome")));
             cliente.setCpf(c.getString(c.getColumnIndex("cpf")));
             cliente.setCep(c.getString(c.getColumnIndex("cep")));
+            cliente.setDataNascimento(c.getString(c.getColumnIndex("dataNascimento")));
             clientes.add(cliente);
         }
         c.close();
@@ -80,7 +104,7 @@ public class ClienteDAO extends SQLiteOpenHelper {
      */
     public Cliente buscaPorId(Long query) {
         SQLiteDatabase database = getReadableDatabase();
-        String sql = "SELECT * FROM Clientes WHERE id like" + query +"";
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE id like " + query +"";
         List<Cliente> clientes = new ArrayList<>();
         Cursor c = database.rawQuery(sql,null);
         Cliente cliente = new Cliente();
@@ -90,7 +114,8 @@ public class ClienteDAO extends SQLiteOpenHelper {
             cliente.setSobrenome(c.getString(c.getColumnIndex("sobrenome")));
             cliente.setCpf(c.getString(c.getColumnIndex("cpf")));
             cliente.setCep(c.getString(c.getColumnIndex("cep")));
-            clientes.add(cliente);
+            cliente.setDataNascimento(c.getString(c.getColumnIndex("dataNascimento")));
+//            clientes.add(cliente);
         }
         c.close();
         return cliente;

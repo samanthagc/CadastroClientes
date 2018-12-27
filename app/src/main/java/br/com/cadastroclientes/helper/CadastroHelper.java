@@ -13,16 +13,9 @@ import br.com.cadastroclientes.model.Cliente;
 
 public class CadastroHelper {
 
-    private EditText nome;
-    private EditText sobrenome;
-    private EditText cpf;
-    private EditText cep;
+    private EditText nome, sobrenome, cpf, cep;
     private Cliente cliente;
-    private Button btnCadastrar;
-
-    public Button getBtnCadastrar(){
-        return btnCadastrar;
-    }
+    private Button btnCadastrar, btnConsultaCep;
 
     public CadastroHelper(CadastroActivity activity){
         cliente = new Cliente();
@@ -31,6 +24,19 @@ public class CadastroHelper {
         cpf = activity.findViewById(R.id.edCPFCadastro);
         cep = activity.findViewById(R.id.edCEPCadastro);
         btnCadastrar = activity.findViewById(R.id.btnCadastro);
+        btnConsultaCep = activity.findViewById(R.id.btnConsultar);
+    }
+
+    public Button getBtnCadastrar(){
+        return btnCadastrar;
+    }
+
+    public Button getBtnConsultaCep() {
+        return btnConsultaCep;
+    }
+
+    public EditText getCep() {
+        return cep;
     }
 
     /**

@@ -27,4 +27,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nomeView"
         android:layout_marginStart="16dp"/>
+
 </android.support.constraint.ConstraintLayout>

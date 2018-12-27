@@ -6,4 +6,105 @@
     android:layout_height="match_parent"
     tools:context="br.com.cadastroclientes.ConfiguracoesActivity">
 
+    <TextView
+        android:id="@+id/tituloEdicao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:text="Edição de Dados"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/edNomeEdicao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:hint="Nome"
+        android:inputType="text|textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloEdicao"
+        tools:ignore="MissingConstraints" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/edSobrenomeEdicao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="Sobrenome"
+        android:inputType="text|textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edNomeEdicao"
+        tools:ignore="MissingConstraints" />
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/edCPFEdicao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="CPF"
+        android:inputType="text|number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edSobrenomeEdicao"
+        tools:ignore="MissingConstraints" />
+
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/edCEPEdicao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="CEP"
+        android:inputType="text|number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@id/edCPFEdicao"/>
+
+    <TextView
+        android:id="@+id/tvNascimentoEdicao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Data de Nascimento"
+        android:textAlignment="viewStart"
+        android:textSize="18dp"
+        android:textColor="#959595"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edCEPEdicao" />
+
+    <Button
+        android:id="@+id/btnEdicao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="CADASTRAR"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNascimentoEdicao" />
+
 </android.support.constraint.ConstraintLayout>
