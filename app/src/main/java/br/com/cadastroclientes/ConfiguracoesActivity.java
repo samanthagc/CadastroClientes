@@ -108,9 +108,15 @@ public class ConfiguracoesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Cliente clienteEditado = helper.pegaClienteEdicao();
 
-                final Intent intent = new Intent(ConfiguracoesActivity.this, MapsActivity.class);
-                intent.putExtra("cepMaps", clienteEditado.getCep());
-                startActivity(intent);
+                if (!clienteEditado.getCep().matches("\\d\\d\\d\\d\\d\\d\\d\\d")){
+                    Toast.makeText(getApplicationContext(),"Insira um CEP válido, utilize apenas números!", Toast.LENGTH_LONG).show();
+                } else if(clienteEditado.getCep().equals("")){
+                    Toast.makeText(getApplicationContext(),"CEP não informado", Toast.LENGTH_LONG).show();
+                } else {
+                    final Intent intent = new Intent(ConfiguracoesActivity.this, MapsActivity.class);
+                    intent.putExtra("cepMaps", clienteEditado.getCep());
+                    startActivity(intent);
+                }
             }
         });
 
