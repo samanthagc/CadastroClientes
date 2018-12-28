@@ -15,7 +15,7 @@ public class ConfiguracoesHelper {
 
     private EditText nomeEdicao, sobrenomeEdicao, cpfEdicao, cepEdicao;
     private Cliente clienteEdicao;
-    private Button btnEditar;
+    private Button btnEditar, btnMaps;
 
     public ConfiguracoesHelper(ConfiguracoesActivity activity){
         clienteEdicao = new Cliente();
@@ -24,6 +24,7 @@ public class ConfiguracoesHelper {
         cpfEdicao = activity.findViewById(R.id.edCPFEdicao);
         cepEdicao = activity.findViewById(R.id.edCEPEdicao);
         btnEditar = activity.findViewById(R.id.btnEdicao);
+        btnMaps = activity.findViewById(R.id.btnMaps);
     }
 
 
@@ -43,14 +44,13 @@ public class ConfiguracoesHelper {
         return cepEdicao;
     }
 
-    public Cliente getClienteEdicao() {
-        return clienteEdicao;
-    }
-
     public Button getBtnEditar() {
         return btnEditar;
     }
 
+    public Button getBtnMaps() {
+        return btnMaps;
+    }
 
     /**
      * Busca um objeto cliente.

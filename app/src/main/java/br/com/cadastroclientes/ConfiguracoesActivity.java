@@ -1,6 +1,7 @@
 package br.com.cadastroclientes;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -34,7 +35,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
 
     private EditText nome, sobrenome, cpf, cep;
     private ConfiguracoesHelper helper;
-    private Button btnEditar, btnConsultarEdicao;
+    private Button btnEditar, btnMaps;
     private TextView dataNascimentoEdicao;
     private DatePickerDialog.OnDateSetListener listenerNascimentoEdicao;
 
@@ -56,6 +57,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         cpf = helper.getCpfEdicao();
         cep = helper.getCepEdicao();
         btnEditar = helper.getBtnEditar();
+        btnMaps = helper.getBtnMaps();
 
         dataNascimentoEdicao = findViewById(R.id.tvNascimentoEdicao);
 
@@ -64,10 +66,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         sobrenome.setText(cliente.getSobrenome().toString());
         cpf.setText(cliente.getCpf().toString());
         cep.setText(cliente.getCep().toString());
-
-        //TODO instanciar data de nascimento como string
-//        dataNascimentoEdicao.setText(cliente.getDataNascimento().toString());
-
+        dataNascimentoEdicao.setText(cliente.getDataNascimento().toString());
 
         dataNascimentoEdicao.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,40 +103,51 @@ public class ConfiguracoesActivity extends AppCompatActivity {
             }
         };
 
+        btnMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cliente clienteEditado = helper.pegaClienteEdicao();
+
+                final Intent intent = new Intent(ConfiguracoesActivity.this, MapsActivity.class);
+                intent.putExtra("cepMaps", clienteEditado.getCep());
+                startActivity(intent);
+            }
+        });
+
 
         //TODO Alterar dados
-//        btnEditar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Cliente clienteEditado = helper.pegaClienteEdicao();
-//
-//                clienteEditado.setDataNascimento(dataNascimentoEdicao.getText().toString());
-//
-//                if(clienteEditado.getNome().equals("") || clienteEditado.getSobrenome().equals("")
-//                        || clienteEditado.getCpf().equals("") || clienteEditado.getCep().equals("")){
-//                    Toast.makeText(getApplicationContext(),"Preencha todos os campos!", Toast.LENGTH_LONG).show();
-//                } else if (!clienteEditado.getNome().matches("(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ][a-zàáâãèéêìíóôõùúç]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$")){
-//                    Toast.makeText(getApplicationContext(),"Insira um nome válido!", Toast.LENGTH_LONG).show();
-//                } else if (!clienteEditado.getSobrenome().matches("(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ][a-zàáâãèéêìíóôõùúç]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$")){
-//                    Toast.makeText(getApplicationContext(),"Insira um sobrenome válido!", Toast.LENGTH_LONG).show();
-//                } else if (!clienteEditado.getCpf().matches("[0-9]{11}")){
-//                    Toast.makeText(getApplicationContext(),"Insira um CPF válido, utilize apenas números!", Toast.LENGTH_LONG).show();
-//                } else if (!clienteEditado.getCep().matches("\\d\\d\\d\\d\\d\\d\\d\\d")){
-//                    Toast.makeText(getApplicationContext(),"Insira um CEP válido, utilize apenas números!", Toast.LENGTH_LONG).show();
-//                } else if(dataNascimentoEdicao.getText().equals(cliente.getDataNascimento())
-//                        && clienteEditado.getNome().equals(cliente.getNome().toString())
-//                        && clienteEditado.getSobrenome().equals(cliente.getSobrenome().toString())
-//                        && clienteEditado.getCpf().equals(cliente.getCpf().toString())
-//                        && clienteEditado.getCep().equals(cliente.getCep().toString())){
-//                    Toast.makeText(getApplicationContext(),"Não há alterações a serem feitas.", Toast.LENGTH_LONG).show();
-//                } else {
-//                    ClienteDAO dao = new ClienteDAO(ConfiguracoesActivity.this);
-//                    dao.atualiza(clienteEditado, clienteId);
-//                    Toast.makeText(getApplicationContext(), "Cliente atualizado com sucesso!", Toast.LENGTH_LONG).show();
-//                    finish();
-//                }
-//            }
-//        });
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cliente clienteEditado = helper.pegaClienteEdicao();
+
+                clienteEditado.setDataNascimento(dataNascimentoEdicao.getText().toString());
+
+                if(clienteEditado.getNome().equals("") || clienteEditado.getSobrenome().equals("")
+                        || clienteEditado.getCpf().equals("") || clienteEditado.getCep().equals("")){
+                    Toast.makeText(getApplicationContext(),"Preencha todos os campos!", Toast.LENGTH_LONG).show();
+                } else if (!clienteEditado.getNome().matches("(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ][a-zàáâãèéêìíóôõùúç]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$")){
+                    Toast.makeText(getApplicationContext(),"Insira um nome válido!", Toast.LENGTH_LONG).show();
+                } else if (!clienteEditado.getSobrenome().matches("(?=^.{2,60}$)^[A-ZÀÁÂĖÈÉÊÌÍÒÓÔÕÙÚÛÇ][a-zàáâãèéêìíóôõùúç]+(?:[ ](?:das?|dos?|de|e|[A-Z][a-z]+))*$")){
+                    Toast.makeText(getApplicationContext(),"Insira um sobrenome válido!", Toast.LENGTH_LONG).show();
+                } else if (!clienteEditado.getCpf().matches("[0-9]{11}")){
+                    Toast.makeText(getApplicationContext(),"Insira um CPF válido, utilize apenas números!", Toast.LENGTH_LONG).show();
+                } else if (!clienteEditado.getCep().matches("\\d\\d\\d\\d\\d\\d\\d\\d")){
+                    Toast.makeText(getApplicationContext(),"Insira um CEP válido, utilize apenas números!", Toast.LENGTH_LONG).show();
+                } else if(dataNascimentoEdicao.getText().equals(cliente.getDataNascimento())
+                        && clienteEditado.getNome().equals(cliente.getNome())
+                        && clienteEditado.getSobrenome().equals(cliente.getSobrenome())
+                        && clienteEditado.getCpf().equals(cliente.getCpf())
+                        && clienteEditado.getCep().equals(cliente.getCep())){
+                    Toast.makeText(getApplicationContext(),"Não há alterações a serem feitas.", Toast.LENGTH_LONG).show();
+                } else {
+                    ClienteDAO dao = new ClienteDAO(ConfiguracoesActivity.this);
+                    dao.atualiza(clienteEditado, clienteId);
+                    Toast.makeText(getApplicationContext(), "Cliente atualizado com sucesso!", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+        });
 
 
     }

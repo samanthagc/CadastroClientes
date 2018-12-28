@@ -67,7 +67,7 @@ public class ClienteDAO extends SQLiteOpenHelper {
         cv.put("dataNascimento", cliente.getDataNascimento());
 
         SQLiteDatabase db = getWritableDatabase();
-        String where = "id like " + idCliente +"";
+        String where = "id = ?";
         String[] arg = { idCliente.toString() };
         db.update(TABLE_NAME, cv, where, arg);
     }
